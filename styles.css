@@ -1,0 +1,308 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background-color: hsl(0, 0%, 0%);
+  color: white;
+}
+.left {
+  width: 25vw;
+  padding: 10px;
+}
+.right {
+  width: 75vw;
+  margin: 16px 0;
+  position: relative;
+}
+
+.home ul li {
+  gap: 10px;
+  display: flex;
+  list-style: none;
+  width: 30px;
+  padding-top: 15px;
+  font-weight: bold;
+}
+.heading {
+  padding: 15px;
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  font-size: 14px;
+}
+.heading img {
+  width: 30px;
+}
+.footer {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  bottom: 0;
+  padding: 10px 5px;
+}
+.footer a {
+  color: gray;
+  text-decoration: none;
+}
+.library {
+  min-height: 80vh;
+  position: relative;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(48, 47, 47);
+}
+.header > * {
+  padding: 25px;
+}
+.spotify-playlist {
+  padding: 16px;
+}
+.spotify-playlist .card {
+  width: 200px;
+  background-color: #252525;
+  padding: 10px;
+  border-radius: 5px;
+}
+.card {
+  position: relative;
+}
+.card > * {
+  padding-top: 10px;
+}
+.card img {
+  width: 100%;
+  object-fit: contain;
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 30px;
+  overflow-y: scroll;
+  max-width: 70vh;
+}
+.play {
+  padding: 10px;
+  position: absolute;
+  top: 200px;
+  right: 6px;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+.card:hover {
+cursor: pointer;
+  background-color: #6b6262;
+  transition: all .5s ;
+  .play {
+    top: 168px;
+    opacity: 1;
+  }
+}
+.sign-btn {
+  border: none;
+  background: none;
+  color: rgb(147, 131, 131);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+.sign-btn:hover {
+  font-size: 21px;
+  color: white;
+}
+.buttons {
+  margin: 0 20px;
+}
+.log-btn {
+  background-color: #fff;
+  color: black;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 20px;
+  padding: 10px;
+  width: 90px;
+}
+.log-btn:hover {
+  font-size: 21px;
+}
+
+.playbar {
+  position: absolute;
+  position: fixed;
+  bottom: 0;
+  background-color: #0f6e15;
+  width: 75%;
+  padding: 14px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  margin-left: -16px;
+  border-radius: 10px;
+}
+.songbtns {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.songs ul li {
+  list-style-type: decimal;
+  display: flex;
+  cursor: pointer;
+  gap: 30px;
+  padding: 20px;
+  margin: 12px;
+  border-radius: 7px;
+  border: 1px solid white;
+  justify-content: space-between;
+}
+.songs {
+  height: 644px;
+  overflow: scroll;
+}
+.songs ul {
+  padding: 0 12px;
+}
+.songs .info {
+  font-size: 14px;
+}
+.playnow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playnow span {
+  font-size: 20px;
+  width: 100px;
+  padding: 10px;
+}
+.seekbar {
+  height: 7px;
+  width: 70%;
+  background-color: #c4c4c4;
+  border: 2px solid rgb(0, 0, 0);
+  position: absolute;
+  bottom: 10px;
+  border-radius: 10px;
+}
+.circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50px;
+  background: #ffffff;
+  position: relative;
+  bottom: 7px;
+  border: 2px solid black;
+  left: 0%;
+  transition: left 0.5s;
+}
+.songbtns img {
+  cursor: pointer;
+  filter: invert(1);
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+}
+.bar {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  cursor: pointer;
+}
+.ham{
+    display: none;
+}
+.hamcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+}
+.x{
+    display:none;
+}
+.songinfo{
+    width: 250px;
+}
+.songtime{
+    bottom: -14px;
+    width: 77px;
+    position: relative;
+    left: 103px;
+}
+.volume{
+    cursor: pointer;
+}
+
+
+#volume-control{
+
+    background-color: #000000;
+    color: white;
+    bottom: 45px;
+    position: relative;
+    visibility: hidden;
+    left: -35px;
+}
+.vimg{
+    position: relative;
+    bottom: 12px;
+    left: 37px;
+}
+.volume:hover,#volume-control:hover{
+    #volume-control{
+        visibility:visible;
+    }
+   
+}
+@media(max-width:900px) {
+   
+    .left{
+        
+        position: absolute;
+        left: -100%;
+        transition: all .5s ;
+        z-index: 15;
+        width: 80vw;
+        background-color: #000000;
+        
+    }
+    .right{
+        width: 100vw;
+
+    }
+    .playbar{
+
+        width: 98vw;
+    }
+    .ham{
+        display: block;
+    }
+    .cross{
+        display: flex;
+        justify-content: space-between;
+    }
+    .x{
+        display: block;
+    }
+    .card {
+        width: 80vw !important;  /* Ensure override */
+    }
+    .card-container {
+        justify-content: center; /* Center cards in smaller screens */
+    }
+}

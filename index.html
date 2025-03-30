@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify</title>
+    <link rel="stylesheet" href="utility.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="Spotify icon"
+      href="https://open.spotifycdn.com/cdn/images/favicon32.b64ecc03.png"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <div class="container flex bg-black">
+      <div class="left">
+        <div class="home bg-grey rounded m1 p1">
+          <div class="cross">
+            <div class="logo m1">
+              <img src="Logo.svg" class="invert" alt="Logo" />
+            </div>
+            <img src="close.svg" class="invert x" height="30" width="30" />
+          </div>
+          <ul class="flex justify-conten column">
+            <li><img src="home.svg" class="invert" alt="home" />Home</li>
+            <li><img src="search.svg" class="invert" alt="search" />Search</li>
+          </ul>
+        </div>
+        <div class="library bg-grey rounded m1 p1">
+          <div class="heading">
+            <img src="library.svg" class="invert" alt="library" />
+            <h2>Your library</h2>
+          </div>
+          <div class="songs">
+            <ul>
+              <li>
+                <img
+                  class="invert"
+                  height="30"
+                  width="30"
+                  src="music.svg"
+                  alt="music"
+                />
+                <div class="info">
+                  <div>Song name</div>
+                  <div>Artist</div>
+                </div>
+                <div class="playnow">
+                  <span>Play Now</span>
+                  <img
+                    src="play.svg"
+                    class="invert"
+                    height="30"
+                    width="30"
+                    alt="playnow"
+                  />
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="footer">
+            <a href="https://www.spotify.com/np-en/legal/">
+              <span>Legal</span>
+            </a>
+            <a href="https://www.spotify.com/np-en/safetyandprivacy/">
+              <span>Safety & Privacy Center</span>
+            </a>
+            <a href="https://www.spotify.com/np-en/legal/privacy-policy/">
+              <span>Privacy Policy</span>
+            </a>
+            <a href="https://www.spotify.com/np-en/legal/cookies-policy/">
+              <span>Cookies</span>
+            </a>
+            <a href="https://www.spotify.com/np-en/legal/privacy-policy/#s3">
+              <span>About Ads</span>
+            </a>
+            <a href="https://www.spotify.com/np-en/accessibility/">
+              <span>Accessibility</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="right bg-grey rounded m1">
+        <div class="header">
+          <div class="nav">
+            <div class="hamcontainer">
+              <img
+                src="ham.svg"
+                class="ham invert"
+                height="24"
+                width="30"
+                alt=""
+              />
+
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"
+                ></path>
+              </svg>
+              <svg
+                width="24"
+                height="24"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="buttons">
+            <button class="sign-btn">Sign up</button>
+            <button class="log-btn">Log in</button>
+          </div>
+        </div>
+        <div class="spotify-playlist">
+          <h1>Spotify Playlist</h1>
+          <div class="card-container">
+            <div data-folder="hph" class="card">
+              <div class="play">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="black"
+                >
+                  <circle cx="24" cy="24" r="24" fill="lightgreen" />
+                  <path
+                    d="M38.752 24.8322L17.5547 38.9636C17.0952 39.27 16.4743 39.1458 16.1679 38.6864C16.0584 38.522 16 38.329 16 38.1316V9.86866C16 9.31636 16.4477 8.86866 17 8.86866C17.1974 8.86866 17.3904 8.9271 17.5547 9.0366L38.752 23.168C39.2114 23.4744 39.3356 24.0954 39.0292 24.5548C38.956 24.6646 38.8618 24.759 38.752 24.8322Z"
+                  ></path>
+                </svg>
+              </div>
+              <img
+                src="https://imgs.search.brave.com/OmWH0WmqH-rvEhIFC1Kv0C6V0ODiOLPeLznXIaUtvpk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmlo/ZWFydC5jb20vdjMv/cmUvYXNzZXRzLnBs/YXlsaXN0cy82Njcw/NjcyMDNkMmU2YzYz/ZmI3MTExMjU_b3Bz/PWZpdCg0ODAsNDgw/KSxmaXQoNDgwLDQ4/MCk"
+                alt="coverPhoto"
+              />
+              <h2>Happy Hits!</h2>
+              <p>Hit to boost your mood and fill up your happiness!</p>
+            </div>
+            <div data-folder="wk" class="card">
+              <div class="play">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="black"
+                >
+                  <circle cx="24" cy="24" r="24" fill="lightgreen" />
+                  <path
+                    d="M38.752 24.8322L17.5547 38.9636C17.0952 39.27 16.4743 39.1458 16.1679 38.6864C16.0584 38.522 16 38.329 16 38.1316V9.86866C16 9.31636 16.4477 8.86866 17 8.86866C17.1974 8.86866 17.3904 8.9271 17.5547 9.0366L38.752 23.168C39.2114 23.4744 39.3356 24.0954 39.0292 24.5548C38.956 24.6646 38.8618 24.759 38.752 24.8322Z"
+                  ></path>
+                </svg>
+              </div>
+              <img
+                src="https://imgs.search.brave.com/j3HdAd2zVZrtBN05xmFMNcdtMjmDwFnPXc-RNVAG6bc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMubGlmZXN0eWxl/YXNpYS5jb20vd3At/Y29udGVudC91cGxv/YWRzL3NpdGVzLzIv/MjAyMy8wMi8xNzE2/MjUxMy9VbnRpdGxl/ZC1kZXNpZ24tMjAy/My0wMi0xN1QxMzU0/NTUuMzM0LTUwMHg1/MDAuanBn"
+                alt="coverPhoto"
+              />
+              <h2>Rocking Weekend</h2>
+              <p>Make your weekend rocky</p>
+            </div>
+            <div data-folder="ls" class="card">
+              <div class="play">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="black"
+                >
+                  <circle cx="24" cy="24" r="24" fill="lightgreen" />
+                  <path
+                    d="M38.752 24.8322L17.5547 38.9636C17.0952 39.27 16.4743 39.1458 16.1679 38.6864C16.0584 38.522 16 38.329 16 38.1316V9.86866C16 9.31636 16.4477 8.86866 17 8.86866C17.1974 8.86866 17.3904 8.9271 17.5547 9.0366L38.752 23.168C39.2114 23.4744 39.3356 24.0954 39.0292 24.5548C38.956 24.6646 38.8618 24.759 38.752 24.8322Z"
+                  ></path>
+                </svg>
+              </div>
+              <img
+                src="https://imgs.search.brave.com/NAMJTzsyz7cT63WEuKbWdOkVEj02Ro5LjZo250tSEqs/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9zdG9y/YWdlLmdvb2dsZWFw/aXMuY29tL3ByLW5l/d3Nyb29tLXdwLzEv/MjAyNC8xMC9AcGFi/bG8ucm9jaGF0LVBs/YXlsaXN0LUNvdmVy/LUFydC0xMDIxeDEw/MjQucG5n"
+                alt="coverPhoto"
+              />
+              <h2>Brain radio</h2>
+              <p>Grow your Brain!</p>
+            </div>
+          </div>
+          <div class="playbar">
+            <div class="seekbar"><div class="circle"></div></div>
+            <div class="bar">
+              <div class="songinfo"></div>
+              <div class="songbtns">
+                <img id="previous" src="prevsong.svg" alt="prevsong" />
+                <img id="play" src="play.svg" alt="play" />
+                <img id="next" src="nextsong.svg" alt="nextsong" />
+              </div>
+              <div class="volume">
+                <div class="songtime"></div>
+
+                <img
+                  src="volume.svg"
+                  class="invert vimg"
+                  height="34"
+                  width="40"
+                  alt=""
+                />
+                <input
+                  type="range"
+                  id="volume-control"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
