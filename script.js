@@ -1,4 +1,4 @@
-const SERVER = process.env.VERCEL_URL ?? "http://localhost:8080";
+const SERVER = window.location.origin;
 const currentSong = new Audio();
 let currFolder = "";
 let songs = [];
