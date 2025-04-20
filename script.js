@@ -9,27 +9,23 @@ let songs = [];
  * and returns the array of filenames.
  */
 async function getSongs(folder) {
-  currFolder = folder;                     // e.g. "songs/hph"
-  const res = await fetch(`${SERVER}/${folder}/`);
-  const html = await res.text();
+  // folder is "songs/hph"
+  currFolder = folder;
 
-  // Parse the directory‐listing HTML
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  const as  = Array.from(doc.querySelectorAll("a"));
-
-  // Extract & decode only the .mp3 links
-  songs = as
-    .map(a => a.getAttribute("href"))
-    .filter(href => href && href.endsWith(".mp3"))
-    .map(href => {
-      // strip leading "./"
-      let file = href.startsWith("./") ? href.slice(2) : href;
-      return decodeURIComponent(file);
-    });
+  // fetch the static manifest.json
+  const manifestUrl = `/${folder}/manifest.json`;
+  let res = await fetch(manifestUrl);
+  if (!res.ok) {
+    console.error("Could not load manifest:", res.status, res.statusText);
+    songs = [];
+  } else {
+    songs = await res.json();  // array of filenames
+  }
 
   renderSongList();
   return songs;
 }
+
 
 /**
  * Builds the <li>…</li> markup and installs one click‐handler
