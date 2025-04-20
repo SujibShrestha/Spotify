@@ -1,73 +1,85 @@
+const SERVER = process.env.VERCEL_URL ?? "http://localhost:8080";
 const currentSong = new Audio();
-let currFolder;
-let songs;
+let currFolder = "";
+let songs = [];
+
+/**
+ * Fetches /{folder}/, parses the HTML directory listing,
+ * extracts all “.mp3” links, decodes them, renders the list,
+ * and returns the array of filenames.
+ */
 async function getSongs(folder) {
-console.log(folder);
-  currFolder=folder;
-  let a = await fetch(`/${folder}/`);
-  
-  let response = await a.text();
-console.log(response);
-  let div = document.createElement("div");
-  div.innerHTML = response;
-  let as = div.getElementsByTagName("a");
+  currFolder = folder;                     // e.g. "songs/hph"
+  const res = await fetch(`${SERVER}/${folder}/`);
+  const html = await res.text();
 
- songs = [];
-  for (let index = 0; index < as.length; index++) {
-    const element = as[index];
-    if (element.href.endsWith(".mp3")) {
-      songs.push(decodeURIComponent(element.href.split(`/${folder}/`)[1]));
-    }
-  }
+  // Parse the directory‐listing HTML
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const as  = Array.from(doc.querySelectorAll("a"));
 
-  let songUL = document.querySelector(".songs ul");
-songUL.innerHTML=""
-  let songListHTML = "";
-  for (const song of songs) {
-    songListHTML += `
-      <li>
-        <img class="invert" height="30" width="30" src="music.svg" alt="music" />
-        <div class="info">
-          <div>${song}</div>
-          <div>Sujib</div>
-        </div>
-        <div class="playnow">
-          <span>Play Now</span>
-          <img src="play.svg" class="invert" height="30" width="30" alt="playnow">
-        </div>
-      </li>`;
-  }
-  songUL.innerHTML = songListHTML;
-
-  document.querySelectorAll(".songs li").forEach((e) => {
-    e.addEventListener("click", () => {
-      let songName = e.querySelector(".info div:first-child").textContent.trim();
-      playMusic(songName);
+  // Extract & decode only the .mp3 links
+  songs = as
+    .map(a => a.getAttribute("href"))
+    .filter(href => href && href.endsWith(".mp3"))
+    .map(href => {
+      // strip leading "./"
+      let file = href.startsWith("./") ? href.slice(2) : href;
+      return decodeURIComponent(file);
     });
-  });
 
- 
+  renderSongList();
+  return songs;
 }
 
-const playMusic = (track, pause = false) => {
-  currentSong.src = `/Spotify/${currFolder}/${track}`;
+/**
+ * Builds the <li>…</li> markup and installs one click‐handler
+ * on the UL for delegated “play-this-track” behavior.
+ */
+function renderSongList() {
+  const ul = document.querySelector(".songs ul");
+  ul.innerHTML = songs.map(song => `
+    <li data-track="${song}">
+      <img class="invert" height="30" width="30" src="music.svg" alt="music" />
+      <div class="info">
+        <div>${song}</div>
+        <div>Sujib</div>
+      </div>
+      <div class="playnow">
+        <span>Play Now</span>
+        <img src="play.svg" class="invert" height="30" width="30" alt="playnow">
+      </div>
+    </li>
+  `).join("");
+
+  // delegate all <li> clicks to a single handler
+  ul.onclick = e => {
+    const li = e.target.closest("li[data-track]");
+    if (!li) return;
+    playMusic(li.dataset.track);
+  };
+}
+
+/**
+ * Plays (or pauses) the given track, relative to your HTTP server.
+ */
+function playMusic(track, pause = false) {
+  currentSong.src = `${SERVER}/${currFolder}/${track}`;
   if (!pause) {
     currentSong.play();
-    let playButton = document.getElementById("play");
-    if (playButton) {
-      playButton.src = "pause.svg";
-    }
+    document.getElementById("play")?.setAttribute("src", "pause.svg");
   }
-  document.querySelector(".songinfo").innerHTML = track.replace(".mp3", "");
-  document.querySelector(".songtime").innerHTML = "00:00/00:00";
-};
+  document.querySelector(".songinfo").textContent = track.replace(".mp3","");
+  document.querySelector(".songtime").textContent = "00:00/00:00";
+}
+
+// ————————————————————————————————————————————————————————————
 
 async function main() {
- await getSongs("songs/hph");
+  await getSongs("songs/hph");
   playMusic(songs[0], true);
-  
-  let play = document.getElementById("play");
-  play.addEventListener("click", () => {
+
+  // toggle play/pause button
+  document.getElementById("play").onclick = () => {
     if (currentSong.paused) {
       currentSong.play();
       play.src = "pause.svg";
@@ -75,76 +87,51 @@ async function main() {
       currentSong.pause();
       play.src = "play.svg";
     }
-  });
+  };
 
+  // update time & progress
+  currentSong.ontimeupdate = () => {
+    document.querySelector(".songtime").textContent = 
+      `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
+    let pct = (currentSong.currentTime/currentSong.duration)*100;
+    document.querySelector(".circle").style.left = `${pct}%`;
+  };
 
-  currentSong.addEventListener("timeupdate", () => {
-    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`;
-    let progress = (currentSong.currentTime / currentSong.duration) * 100;
-    document.querySelector(".circle").style.left = `${progress}%`;
-  });
+  // seekbar click
+  document.querySelector(".seekbar").onclick = e => {
+    let pct = e.offsetX / e.currentTarget.clientWidth;
+    currentSong.currentTime = currentSong.duration * pct;
+  };
 
-  document.querySelector(".seekbar").addEventListener("click", (e) => {
-    let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
-    let newTime = (currentSong.duration * percent) / 100;
-    currentSong.currentTime = newTime;
-    document.querySelector(".circle").style.left = `${percent}%`;
-  });
-
-  document.querySelector(".ham").addEventListener("click", () => {
+  // nav drawer
+  document.querySelector(".ham").onclick = () => 
     document.querySelector(".left").style.left = "0%";
-  });
-  document.querySelector(".x").addEventListener("click", () => {
+  document.querySelector(".x").onclick = () => 
     document.querySelector(".left").style.left = "-100%";
+
+  // prev / next
+  document.getElementById("previous").onclick = () => {
+    let idx = songs.indexOf(decodeURIComponent(currentSong.src.split("/").pop()));
+    playMusic(idx>0 ? songs[idx-1] : songs[songs.length-1]);
+  };
+  document.getElementById("next").onclick = () => {
+    let idx = songs.indexOf(decodeURIComponent(currentSong.src.split("/").pop()));
+    playMusic(idx < songs.length-1 ? songs[idx+1] : songs[0]);
+  };
+
+  // volume
+  document.querySelector(".volume input").oninput = e => 
+    currentSong.volume = e.target.value;
+
+  // load folder/album cards
+  document.querySelectorAll(".card").forEach(card => {
+    card.onclick = () => getSongs(`songs/${card.dataset.folder}`);
   });
-
-  previous.addEventListener("click", () => {
-    console.log("Previous is clicked");
-    let currentTrack = decodeURIComponent(currentSong.src.split("/").pop()); // Extract filename
-    let index = songs.indexOf(currentTrack);
-
-    if (index > 0) {
-        playMusic(songs[index - 1]);
-    } else {
-      playMusic(songs[songs.length-1]);
-        console.log("Already at the first song.");
-    }
-});
-
-next.addEventListener("click", () => {
-    console.log("Next is clicked");
-    let currentTrack = decodeURIComponent(currentSong.src.split("/").pop()); // Extract filename
-    let index = songs.indexOf(currentTrack);
-
-    if (index !== -1 && index < songs.length - 1) {
-        playMusic(songs[index + 1]);
-    } else {
-      playMusic(songs[0]);
-
-        console.log("Already at the last song.");
-    }
-});
-
-document.querySelector(".volume input").addEventListener("input", (e) => {
-  currentSong.volume = e.target.value;
-});
-
-
-
-//load folder/album
-Array.from(document.getElementsByClassName("card")).forEach(e=>{
-  e.addEventListener("click", async item=>{
-    songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-  
-  })
-})
-
 }
 
-function secondsToMinutesSeconds(seconds) {
-  let min = Math.floor(seconds / 60);
-  let sec = Math.floor(seconds % 60);
-  return `${min}:${sec < 10 ? "0" + sec : sec}`;
+function secondsToMinutesSeconds(sec) {
+  let m = Math.floor(sec/60), s = Math.floor(sec%60);
+  return `${m}:${s<10?"0"+s:s}`;
 }
 
 main();
