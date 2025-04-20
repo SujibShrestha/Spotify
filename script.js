@@ -4,7 +4,7 @@ let songs;
 async function getSongs(folder) {
 console.log(folder);
   currFolder=folder;
-  let a = await fetch(`/Spotify/${folder}/`);
+  let a = await fetch(`/${folder}/`);
   
   let response = await a.text();
 console.log(response);
